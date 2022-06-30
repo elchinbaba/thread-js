@@ -272,6 +272,22 @@ const removePost = createAsyncThunk(
   }
 );
 
+const updatePost = createAsyncThunk(
+  ActionType.UPDATE_POST,
+  async (postPayload, { extra: { services } }) => {
+    const post = await services.post.updatePost(postPayload);
+    return { post };
+  }
+);
+
+const toggleUpdatePost = createAsyncThunk(
+  ActionType.SET_UPDATE_POST,
+  async (postId, { extra: { services } }) => {
+    const post = postId ? await services.post.getPost(postId) : undefined;
+    return { post };
+  }
+);
+
 export {
   loadPosts,
   loadMorePosts,
@@ -282,5 +298,7 @@ export {
   addComment,
   dislikePost,
   removePost,
-  loadLikedPosts
+  loadLikedPosts,
+  updatePost,
+  toggleUpdatePost
 };

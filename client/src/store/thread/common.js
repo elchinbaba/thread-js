@@ -6,7 +6,9 @@ const ActionType = {
   REACT: 'thread/react',
   COMMENT: 'thread/comment',
   REMOVE_POST: 'thread/remove-post',
-  SET_LIKED_POSTS: 'thread/set-liked-posts'
+  SET_LIKED_POSTS: 'thread/set-liked-posts',
+  UPDATE_POST: 'thread/update-post',
+  SET_UPDATE_POST: 'thread/set-update-post'
 };
 
 export { ActionType };

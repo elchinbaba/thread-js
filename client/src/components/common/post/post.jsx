@@ -7,7 +7,7 @@ import { IconButton, Image } from 'components/common/common';
 
 import styles from './styles.module.scss';
 
-const Post = ({ post, onPostLike, onExpandedPostToggle, onSharePost, onPostDislike, onRemovePost }) => {
+const Post = ({ post, onPostLike, onExpandedPostToggle, onSharePost, onPostDislike, onRemovePost, onUpdatePost }) => {
   const {
     id,
     image,
@@ -25,6 +25,7 @@ const Post = ({ post, onPostLike, onExpandedPostToggle, onSharePost, onPostDisli
   const handleSharePost = () => onSharePost(id);
   const handlePostDislike = () => onPostDislike(id);
   const handleRemovePost = () => onRemovePost(id);
+  const handleUpdatePost = () => onUpdatePost(id);
 
   return (
     <div className={styles.card}>
@@ -59,6 +60,10 @@ const Post = ({ post, onPostLike, onExpandedPostToggle, onSharePost, onPostDisli
           iconName={IconName.REMOVE}
           onClick={handleRemovePost}
         />
+        <IconButton
+          iconName={IconName.UPDATE}
+          onClick={handleUpdatePost}
+        />
       </div>
     </div>
   );
@@ -70,7 +75,8 @@ Post.propTypes = {
   onExpandedPostToggle: PropTypes.func.isRequired,
   onSharePost: PropTypes.func.isRequired,
   onPostDislike: PropTypes.func.isRequired,
-  onRemovePost: PropTypes.func.isRequired
+  onRemovePost: PropTypes.func.isRequired,
+  onUpdatePost: PropTypes.func.isRequired
 };
 
 export { Post };
