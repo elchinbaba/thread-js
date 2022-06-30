@@ -44,6 +44,10 @@ class Post {
   removePost(id) {
     return this._postRepository.deleteById(id);
   }
+
+  getPostReactions() {
+    return this._postReactionRepository.getPostReactions();
+  }
 }
 
 export { Post };

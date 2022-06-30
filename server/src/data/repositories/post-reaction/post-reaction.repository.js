@@ -14,6 +14,13 @@ class PostReaction extends Abstract {
       .withGraphFetched('[post]')
       .first();
   }
+
+  getPostReactions() {
+    return this.model
+      .query()
+      .select()
+      .withGraphFetched('[post]');
+  }
 }
 
 export { PostReaction };
