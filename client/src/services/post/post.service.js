@@ -86,6 +86,17 @@ class Post {
       }
     );
   }
+
+  updatePost(postPayload) {
+    return this._http.load(
+      `${this._apiPath}${ApiPath.POSTS}${PostsApiPath.ROOT}${postPayload.id}`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(postPayload)
+      }
+    );
+  }
 }
 
 export { Post };
