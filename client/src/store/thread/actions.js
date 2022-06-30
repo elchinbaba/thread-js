@@ -338,6 +338,7 @@ export {
   loadLikedPosts,
   updatePost,
   toggleUpdatePost,
+  // displayLikersPopup,
   displayLikers,
   notDisplayLikers
 };

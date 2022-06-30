@@ -8,6 +8,12 @@ class User {
 
     return user;
   }
+
+  async getUsers() {
+    const users = await this._userRepository.getUsers();
+
+    return users;
+  }
 }
 
 export { User };

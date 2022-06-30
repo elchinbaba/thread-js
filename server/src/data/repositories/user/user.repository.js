@@ -25,6 +25,10 @@ class User extends Abstract {
       .withGraphFetched('[image]')
       .first();
   }
+
+  getUsers() {
+    return this.model.query().select().withGraphFetched('[image]');
+  }
 }
 
 export { User };
