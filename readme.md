@@ -1,3 +1,10 @@
+sql code:
+ALTER TABLE users
+    ADD status text;
+
+cd client
+npm install emailjs-com
+
 # ThreadJS
 
 ## Description
