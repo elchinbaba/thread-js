@@ -287,13 +287,6 @@ const toggleUpdatePost = createAsyncThunk(
     return { post };
   }
 );
-// const displayLikersPopup = createAsyncThunk(
-//   ActionType.GET_LIKERS_POPUP,
-//   async (postId, { extra: { services } }) => {
-//     const post = await services.post.getPost(postId);
-//     return { post };
-//   }
-// );
 
 const displayLikers = createAsyncThunk(
   ActionType.DISPLAY_LIKERS,
@@ -338,7 +331,6 @@ export {
   loadLikedPosts,
   updatePost,
   toggleUpdatePost,
-  // displayLikersPopup,
   displayLikers,
   notDisplayLikers
 };
