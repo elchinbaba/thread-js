@@ -48,6 +48,10 @@ class Post {
   getPostReactions() {
     return this._postReactionRepository.getPostReactions();
   }
+
+  updatePost(id, body) {
+    return this._postRepository.updateById(id, { body });
+  }
 }
 
 export { Post };

@@ -9,13 +9,16 @@ import {
   createPost,
   dislikePost,
   removePost,
-  loadLikedPosts
+  loadLikedPosts,
+  updatePost,
+  toggleUpdatePost
 } from './actions.js';
 
 const initialState = {
   posts: [],
   expandedPost: null,
-  hasMorePosts: true
+  hasMorePosts: true,
+  updatePost: null
 };
 
 const reducer = createReducer(initialState, builder => {
@@ -45,10 +48,21 @@ const reducer = createReducer(initialState, builder => {
 
     state.expandedPost = post;
   });
+  builder.addCase(toggleUpdatePost.fulfilled, (state, action) => {
+    const { post } = action.payload;
+
+    state.updatePost = post;
+  });
   builder.addCase(removePost.fulfilled, (state, action) => {
     const { postId } = action.payload;
 
     state.posts = state.posts.filter(post => post.id !== postId);
+    state.hasMorePosts = Boolean(state.posts.length);
+  });
+  builder.addCase(updatePost.fulfilled, (state, action) => {
+    const { id: postId } = action.payload.post;
+
+    state.posts.find(post => post.id === postId).body = action.payload.post.body;
     state.hasMorePosts = Boolean(state.posts.length);
   });
   builder.addMatcher(
