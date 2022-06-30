@@ -14,6 +14,18 @@ class User {
 
     return users;
   }
+
+  async updateUser(id, data) {
+    const isPassword = data.isPassword;
+    delete data.isPassword;
+
+    if (isPassword) {
+      data.password = await encrypt(data.password);
+      return this._userRepository.updateById(id, data);
+    }
+    
+    return this._userRepository.updateById(id, data);
+  }
 }
 
 export { User };

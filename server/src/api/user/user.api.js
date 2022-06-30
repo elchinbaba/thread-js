@@ -8,6 +8,11 @@ const initUser = (fastify, opts, done) => {
     url: UsersApiPath.ROOT,
     [ControllerHook.HANDLER]: () => userService.getUsers()
   });
+  fastify.route({
+    method: HttpMethod.PUT,
+    url: UsersApiPath.$ID,
+    [ControllerHook.HANDLER]: req => userService.updateUser(req.body.id, req.body.data)
+  });
 
   done();
 };

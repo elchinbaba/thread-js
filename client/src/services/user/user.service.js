@@ -1,7 +1,8 @@
 import {
   ApiPath,
   UsersApiPath,
-  HttpMethod
+  HttpMethod,
+  ContentType
 } from 'common/enums/enums';
 
 class User {
@@ -15,6 +16,17 @@ class User {
       `${this._apiPath}${ApiPath.USERS}${UsersApiPath.ROOT}`,
       {
         method: HttpMethod.GET
+      }
+    );
+  }
+
+  updateUser(id, data) {
+    return this._http.load(
+      `${this._apiPath}${ApiPath.USERS}${UsersApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ id, data })
       }
     );
   }
