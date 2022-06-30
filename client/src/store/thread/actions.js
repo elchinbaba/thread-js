@@ -287,6 +287,43 @@ const toggleUpdatePost = createAsyncThunk(
     return { post };
   }
 );
+// const displayLikersPopup = createAsyncThunk(
+//   ActionType.GET_LIKERS_POPUP,
+//   async (postId, { extra: { services } }) => {
+//     const post = await services.post.getPost(postId);
+//     return { post };
+//   }
+// );
+
+const displayLikers = createAsyncThunk(
+  ActionType.DISPLAY_LIKERS,
+  async (postId, { extra: { services } }) => {
+    const post = await services.post.getPost(postId);
+
+    let reactions = await services.post.getPostReactions();
+
+    reactions = reactions.filter(reaction => reaction.isLike === true && reaction.postId === postId);
+    const reactionOfUsers = reactions.map(reaction => reaction.userId);
+
+    let users = await services.user.getUsers();
+
+    users = users.filter(user => reactionOfUsers.includes(user.id));
+
+    users = users.map(user => user.username);
+
+    return { post, users };
+  }
+);
+
+const notDisplayLikers = createAsyncThunk(
+  ActionType.NOT_DISPLAY_LIKERS,
+  () => {
+    return {
+      post: null,
+      users: []
+    };
+  }
+);
 
 export {
   loadPosts,
@@ -300,5 +337,7 @@ export {
   removePost,
   loadLikedPosts,
   updatePost,
-  toggleUpdatePost
+  toggleUpdatePost,
+  displayLikers,
+  notDisplayLikers
 };
