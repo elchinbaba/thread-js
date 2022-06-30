@@ -40,6 +40,10 @@ class Post {
       : reaction ? reaction
       : this._postReactionRepository.getPostReaction(userId, postId);
   }
+
+  removePost(id) {
+    return this._postRepository.deleteById(id);
+  }
 }
 
 export { Post };

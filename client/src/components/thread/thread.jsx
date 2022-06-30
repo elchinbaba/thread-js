@@ -96,6 +96,11 @@ const Thread = () => {
 
   const handleCloseSharedPostLink = () => setSharedPostId(undefined);
 
+  const handleRemovePost = useCallback(
+    id => dispatch(threadActionCreator.removePost(id)),
+    [dispatch]
+  );
+
   useEffect(() => {
     handleGetMorePosts();
   }, [handleGetMorePosts]);
@@ -129,6 +134,7 @@ const Thread = () => {
             onSharePost={handleSharePost}
             key={post.id}
             onPostDislike={handlePostDislike}
+            onRemovePost={handleRemovePost}
           />
         ))}
       </InfiniteScroll>
