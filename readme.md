@@ -1,10 +1,10 @@
-sql:
+### sql:
 
     ALTER TABLE users
 
         ADD status text;
 
-terminal:
+### terminal:
 
 cd client
 
