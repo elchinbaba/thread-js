@@ -13,7 +13,8 @@ const IconName = {
   USER: 'user',
   USER_CIRCLE: 'user circle',
   REMOVE: 'remove',
-  UPDATE: 'update'
+  UPDATE: 'update',
+  STATUS: 'status'
 };
 
 export { IconName };

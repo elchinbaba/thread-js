@@ -60,7 +60,7 @@ Input.propTypes = {
   iconName: PropTypes.oneOf(Object.values(IconName)),
   placeholder: PropTypes.string.isRequired,
   className: PropTypes.string,
-  type: PropTypes.oneOf(['email', 'password', 'submit', 'text']),
+  type: PropTypes.oneOf(['email', 'password', 'submit', 'text', 'status']),
   rows: PropTypes.number
 };
 

@@ -32,7 +32,8 @@ const iconNameToSvgIcon = {
   [IconName.USER]: faUser,
   [IconName.USER_CIRCLE]: faUserCircle,
   [IconName.REMOVE]: faRemove,
-  [IconName.UPDATE]: faEdit
+  [IconName.UPDATE]: faEdit,
+  [IconName.STATUS]: faUser
 };
 
 export { iconNameToSvgIcon };

@@ -7,6 +7,7 @@ const userType = PropTypes.exact({
   image: imageType,
   imageId: PropTypes.number,
   username: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   updatedAt: PropTypes.string.isRequired
 });
