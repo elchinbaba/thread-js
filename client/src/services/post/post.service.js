@@ -71,6 +71,21 @@ class Post {
       }
     );
   }
+
+  getPosts() {
+    return this._http.load(`${this._apiPath}${ApiPath.POSTS}`, {
+      method: HttpMethod.GET
+    });
+  }
+
+  getPostReactions() {
+    return this._http.load(
+      `${this._apiPath}${ApiPath.POSTS}${PostsApiPath.REACT}`,
+      {
+        method: HttpMethod.GET
+      }
+    );
+  }
 }
 
 export { Post };
