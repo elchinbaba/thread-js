@@ -119,6 +119,15 @@ const Thread = () => {
           />
         </div>
       </form>
+      <form name="thread-toolbar">
+        <div className={styles.toolbar}>
+          <Checkbox
+            name={ThreadToolbarKey.SHOW_LIKED_POSTS}
+            control={control}
+            label="Show only liked posts"
+          />
+        </div>
+      </form>
       <InfiniteScroll
         dataLength={posts.length}
         next={handleGetMorePosts}
