@@ -28,9 +28,13 @@ const initPost = (fastify, opts, done) => {
     [ControllerHook.HANDLER]: async req => {
       const reaction = await postService.setReaction(req.user.id, req.body);
 
-      if (reaction.post && reaction.post.userId !== req.user.id) {
+      if (reaction.post && reaction.post.userId !== req.user.id && reaction.isLike === true) {
         // notify a user if someone (not himself) liked his post
         req.io.to(reaction.post.userId).emit('like', 'Your post was liked!');
+      } 
+      if (reaction.post && reaction.post.userId !== req.user.id && reaction.isLike === false) {
+        // notify a user if someone (not himself) disliked his post
+        req.io.to(reaction.post.userId).emit('dislike', 'Your post was disliked!');
       }
       return reaction;
     }
