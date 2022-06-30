@@ -1,8 +1,10 @@
-import { useAppForm, useSelector } from 'hooks/hooks';
+import { useAppForm, useSelector, useState } from 'hooks/hooks';
 import { Image, Input } from 'components/common/common';
 import { DEFAULT_USER_AVATAR } from 'common/constants/constants';
 import { ImageSize, IconName } from 'common/enums/enums';
 import styles from './styles.module.scss';
+
+import { UpdateProfile } from './components/update-profile/update-profile.jsx';
 
 const Profile = () => {
   const { user } = useSelector(state => ({
@@ -15,6 +17,10 @@ const Profile = () => {
       email: user.email
     }
   });
+
+  const [edit, setEdit] = useState(false);
+
+  const handleEdit = () => setEdit(!edit);
 
   return (
     <form name="profile" className={styles.profile}>
@@ -42,6 +48,8 @@ const Profile = () => {
           control={control}
         />
       </fieldset>
+      <button type="button" onClick={handleEdit}>Edit</button>
+      {edit && <UpdateProfile id={user.id} username={user.username} />}
     </form>
   );
 };

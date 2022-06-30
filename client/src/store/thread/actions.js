@@ -325,6 +325,17 @@ const notDisplayLikers = createAsyncThunk(
   }
 );
 
+const updateUser = createAsyncThunk(
+  ActionType.UPDATE_PROFILE,
+  async (payload, { extra: { services } }) => {
+    const { id, username, status } = payload;
+    const data = { username, status, isPassword: false };
+    const user = await services.user.updateUser(id, data);
+
+    return user;
+  }
+);
+
 export {
   loadPosts,
   loadMorePosts,
@@ -340,5 +351,6 @@ export {
   toggleUpdatePost,
   // displayLikersPopup,
   displayLikers,
-  notDisplayLikers
+  notDisplayLikers,
+  updateUser
 };

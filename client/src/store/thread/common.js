@@ -11,7 +11,8 @@ const ActionType = {
   SET_UPDATE_POST: 'thread/set-update-post',
   // GET_LIKERS_POPUP: 'thread/get-likers-popup',
   DISPLAY_LIKERS: 'thread/display-likers',
-  NOT_DISPLAY_LIKERS: 'thread/not-display-likers'
+  NOT_DISPLAY_LIKERS: 'thread/not-display-likers',
+  UPDATE_PROFILE: 'profile/update'
 };
 
 export { ActionType };
