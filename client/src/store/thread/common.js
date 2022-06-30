@@ -1,0 +1,21 @@
+const ActionType = {
+  ADD_POST: 'thread/add-post',
+  LOAD_MORE_POSTS: 'thread/load-more-posts',
+  SET_ALL_POSTS: 'thread/set-all-posts',
+  SET_EXPANDED_POST: 'thread/set-expanded-post',
+  REACT: 'thread/react',
+  COMMENT: 'thread/comment',
+  GET_ALL_POSTS: 'thread/get-all-posts',
+  REMOVE_POST: 'thread/remove-post',
+  UPDATE_POST: 'thread/update-post',
+  GET_EXPANDED_POST: 'thread/get-expanded-post',
+  GET_LIKERS_POPUP: 'thread/get-likers-popup',
+  DISPLAY_LIKERS: 'thread/display-likers',
+  NOT_DISPLAY_LIKERS: 'thread/not-display-likers',
+  UPDATE_PROFILE: 'profile/update',
+  UPDATE_USER_STATUS: 'profile/update-status',
+  RESET_USER_PASSWORD: 'profile/reset-password'
+};
+
+export { ActionType };
+
