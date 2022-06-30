@@ -37,6 +37,7 @@ class Post {
     // the result is an integer when an entity is deleted
     return Number.isInteger(result)
       ? {}
+      : reaction ? reaction
       : this._postReactionRepository.getPostReaction(userId, postId);
   }
 }
