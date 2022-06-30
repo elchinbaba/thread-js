@@ -1,3 +1,5 @@
+import { encrypt } from '../../helpers/helpers.js';
+
 class User {
   constructor({ userRepository }) {
     this._userRepository = userRepository;
