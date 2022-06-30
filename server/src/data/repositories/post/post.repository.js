@@ -10,10 +10,28 @@ class Post extends Abstract {
     super(postModel);
   }
 
+  // getPosts(filter) {
+  //   const { from: offset, count: limit, userId } = filter;
+
+  //   return this.model
+  //     .query()
+  //     .select(
+  //       'posts.*',
+  //       getCommentsCountQuery(this.model),
+  //       getReactionsQuery(this.model)(true),
+  //       getReactionsQuery(this.model)(false)
+  //     )
+  //     .where(getWhereUserIdQuery(userId))
+  //     .withGraphFetched('[image, user.image]')
+  //     .orderBy('createdAt', 'desc')
+  //     .offset(offset)
+  //     .limit(limit);
+  // }
   getPosts(filter) {
     const { from: offset, count: limit, userId } = filter;
-
-    return this.model
+    
+    if (filter.from !== undefined) {
+      return this.model
       .query()
       .select(
         'posts.*',
@@ -26,6 +44,18 @@ class Post extends Abstract {
       .orderBy('createdAt', 'desc')
       .offset(offset)
       .limit(limit);
+    }
+
+    return this.model
+      .query()
+      .select(
+         'posts.*',
+         getCommentsCountQuery(this.model),
+         getReactionsQuery(this.model)(true),
+         getReactionsQuery(this.model)(false)
+      )
+      .withGraphFetched('[image, user.image]')
+      .orderBy('createdAt', 'desc');
   }
 
   getPostById(id) {

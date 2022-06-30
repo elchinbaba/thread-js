@@ -44,6 +44,14 @@ const initPost = (fastify, opts, done) => {
     url: PostsApiPath.$ID,
     [ControllerHook.HANDLER]: req => postService.removePost(req.params.id)
   });
+  fastify.route({
+    method: HttpMethod.GET,
+    url: PostsApiPath.REACT,
+    [ControllerHook.HANDLER]: async _ => {
+      const reactions = await postService.getPostReactions();
+      return reactions;
+    }
+  });
 
   done();
 };

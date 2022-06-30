@@ -1,10 +1,71 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ActionType } from './common.js';
 
+// const loadPosts = createAsyncThunk(
+//   ActionType.SET_ALL_POSTS,
+//   async (filters, { extra: { services } }) => {
+//     const posts = await services.post.getAllPosts(filters);
+//     return { posts };
+//   }
+// );
 const loadPosts = createAsyncThunk(
   ActionType.SET_ALL_POSTS,
   async (filters, { extra: { services } }) => {
-    const posts = await services.post.getAllPosts(filters);
+    let posts;
+    const { state, userId } = filters;
+
+    if (state === 'own' || state === 'none') {
+      posts = await services.post.getAllPosts(filters);
+      return { posts };
+    }
+    posts = await services.post.getPosts();
+
+    const reactions = await services.post.getPostReactions();
+
+    const reactedPosts = [];
+    reactions.forEach(reaction => {
+      if (reaction.isLike === true && reaction.userId === userId) {
+        reactedPosts.push(reaction.postId);
+      }
+    });
+
+    posts = posts.filter(post => reactedPosts.includes(post.id));
+
+    if (state === 'own&liked') {
+      posts = posts.filter(post => post.userId === userId);
+    }
+
+    return { posts };
+  }
+);
+
+const loadLikedPosts = createAsyncThunk(
+  ActionType.SET_LIKED_POSTS,
+  async (filters, { extra: { services } }) => {
+    const { state, userId } = filters;
+    let posts;
+
+    if (state === 'own' || state === 'none') {
+      posts = await services.post.getAllPosts(filters);
+      return { posts };
+    }
+    posts = await services.post.getPosts();
+
+    const reactions = await services.post.getPostReactions();
+
+    const reactedPosts = [];
+    reactions.forEach(reaction => {
+      if (reaction.isLike === true && reaction.userId === userId) {
+        reactedPosts.push(reaction.postId);
+      }
+    });
+
+    posts = posts.filter(post => reactedPosts.includes(post.id));
+
+    if (state === 'own&liked') {
+      posts = posts.filter(post => post.userId === userId);
+    }
+
     return { posts };
   }
 );
@@ -220,5 +281,6 @@ export {
   likePost,
   addComment,
   dislikePost,
-  removePost
+  removePost,
+  loadLikedPosts
 };

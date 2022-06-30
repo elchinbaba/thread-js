@@ -12,7 +12,7 @@ const Checkbox = ({ name, label, control }) => {
         {...field}
         name={name}
         type="checkbox"
-        id="toggle-checkbox"
+        // id="toggle-checkbox"
         className={`${styles.switch} ${styles.pointer}`}
       />
       <label className={styles.pointer} htmlFor="toggle-checkbox">{label}</label>
