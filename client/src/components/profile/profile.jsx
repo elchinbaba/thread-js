@@ -14,7 +14,8 @@ const Profile = () => {
   const { control } = useAppForm({
     defaultValues: {
       username: user.username,
-      email: user.email
+      email: user.email,
+      status: user.status
     }
   });
 
@@ -45,6 +46,14 @@ const Profile = () => {
           name="email"
           type="email"
           value={user.email}
+          control={control}
+        />
+        <Input
+          iconName={IconName.STATUS}
+          placeholder="Status"
+          name="status"
+          type="status"
+          value={user.status}
           control={control}
         />
       </fieldset>
