@@ -1,6 +1,6 @@
 sql code:
 
-ALTER TABLE users
+  ALTER TABLE users
 
     ADD status text;
 
