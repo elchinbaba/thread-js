@@ -12,7 +12,8 @@ const ActionType = {
   // GET_LIKERS_POPUP: 'thread/get-likers-popup',
   DISPLAY_LIKERS: 'thread/display-likers',
   NOT_DISPLAY_LIKERS: 'thread/not-display-likers',
-  UPDATE_PROFILE: 'profile/update'
+  UPDATE_PROFILE: 'profile/update',
+  UPDATE_USER_STATUS: 'profile/update-status'
 };
 
 export { ActionType };

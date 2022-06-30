@@ -38,7 +38,7 @@ class Comment extends AbstractModel {
       user: {
         relation: Model.HasOneRelation,
         modelClass: UserModel,
-        filter: query => query.select('id', 'username', 'imageId'),
+        filter: query => query.select('id', 'username', 'imageId', 'status'),
         join: {
           from: `${DbTableName.COMMENTS}.userId`,
           to: `${DbTableName.USERS}.id`

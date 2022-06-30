@@ -14,6 +14,7 @@ const Comment = ({ comment: { body, createdAt, user } }) => (
         <span className={styles.author}>{user.username}</span>
         <span className={styles.date}>{getFromNowTime(createdAt)}</span>
       </div>
+      {user.status}
       <p>{body}</p>
     </div>
   </div>
