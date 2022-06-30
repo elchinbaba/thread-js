@@ -8,7 +8,8 @@ import {
   applyPost,
   createPost,
   dislikePost,
-  removePost
+  removePost,
+  loadLikedPosts
 } from './actions.js';
 
 const initialState = {
@@ -19,6 +20,12 @@ const initialState = {
 
 const reducer = createReducer(initialState, builder => {
   builder.addCase(loadPosts.fulfilled, (state, action) => {
+    const { posts } = action.payload;
+
+    state.posts = posts;
+    state.hasMorePosts = Boolean(posts.length);
+  });
+  builder.addCase(loadLikedPosts.fulfilled, (state, action) => {
     const { posts } = action.payload;
 
     state.posts = posts;

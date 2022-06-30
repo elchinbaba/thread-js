@@ -19,7 +19,8 @@ import styles from './styles.module.scss';
 const postsFilter = {
   userId: undefined,
   from: 0,
-  count: 10
+  count: 10,
+  state: ''
 };
 
 const Thread = () => {
@@ -38,17 +39,33 @@ const Thread = () => {
   });
 
   const showOwnPosts = watch(ThreadToolbarKey.SHOW_OWN_POSTS);
+  const showLikedPosts = watch(ThreadToolbarKey.SHOW_LIKED_POSTS);
 
   const handlePostsLoad = useCallback(filtersPayload => {
     dispatch(threadActionCreator.loadPosts(filtersPayload));
   }, [dispatch]);
 
+  // const handleToggleShowOwnPosts = useCallback(
+  //   () => {
+  //     postsFilter.userId = showOwnPosts ? userId : undefined;
+  //     postsFilter.from = 0;
+  //     handlePostsLoad(postsFilter);
+  //     postsFilter.from = postsFilter.count; // for the next scroll
+  //   },
+  //   [userId, showOwnPosts, handlePostsLoad]
+  // );
   const handleToggleShowOwnPosts = useCallback(
     () => {
-      postsFilter.userId = showOwnPosts ? userId : undefined;
+      postsFilter.userId = showOwnPosts || showLikedPosts ? userId : undefined;
+
+      if (showOwnPosts && !showLikedPosts) postsFilter.state = 'own';
+      else if (showOwnPosts && showLikedPosts) postsFilter.state = 'own&liked';
+      else if (!showOwnPosts && showLikedPosts) postsFilter.state = 'liked';
+      else postsFilter.state = 'none';
+
       postsFilter.from = 0;
       handlePostsLoad(postsFilter);
-      postsFilter.from = postsFilter.count; // for the next scroll
+      postsFilter.from = postsFilter.count;
     },
     [userId, showOwnPosts, handlePostsLoad]
   );
@@ -56,6 +73,30 @@ const Thread = () => {
   useEffect(() => {
     handleToggleShowOwnPosts();
   }, [showOwnPosts, handleToggleShowOwnPosts]);
+
+  const handlePostsLoadLiked = useCallback(id => {
+    dispatch(threadActionCreator.loadLikedPosts(id));
+  }, [dispatch]);
+
+  const handleToggleShowLikedPosts = useCallback(
+    () => {
+      postsFilter.userId = showLikedPosts || showOwnPosts ? userId : undefined;
+
+      if (showLikedPosts && !showOwnPosts) postsFilter.state = 'liked';
+      else if (showLikedPosts && showOwnPosts) postsFilter.state = 'own&liked';
+      else if (!showLikedPosts && showOwnPosts) postsFilter.state = 'own';
+      else postsFilter.state = 'none';
+
+      postsFilter.from = 0;
+      handlePostsLoadLiked(postsFilter);
+      postsFilter.from = postsFilter.count;
+    },
+    [userId, showLikedPosts, handlePostsLoadLiked]
+  );
+
+  useEffect(() => {
+    handleToggleShowLikedPosts();
+  }, [showLikedPosts, handleToggleShowLikedPosts]);
 
   const handlePostLike = useCallback(
     id => dispatch(threadActionCreator.likePost(id)),
