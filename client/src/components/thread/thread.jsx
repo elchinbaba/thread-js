@@ -11,7 +11,7 @@ import { threadActionCreator } from 'store/actions.js';
 import { image as imageService } from 'services/services.js';
 import { ThreadToolbarKey, UseFormMode } from 'common/enums/enums.js';
 import { Post, Spinner, Checkbox } from 'components/common/common.js';
-import { ExpandedPost, SharedPostLink, AddPost } from './components/components.js';
+import { ExpandedPost, SharedPostLink, AddPost, UpdatePost } from './components/components.js';
 import { DEFAULT_THREAD_TOOLBAR } from './common/constants.js';
 
 import styles from './styles.module.scss';
@@ -25,11 +25,12 @@ const postsFilter = {
 
 const Thread = () => {
   const dispatch = useDispatch();
-  const { posts, hasMorePosts, expandedPost, userId } = useSelector(state => ({
+  const { posts, hasMorePosts, expandedPost, userId, updatePost } = useSelector(state => ({
     posts: state.posts.posts,
     hasMorePosts: state.posts.hasMorePosts,
     expandedPost: state.posts.expandedPost,
-    userId: state.profile.user.id
+    userId: state.profile.user.id,
+    updatePost: state.posts.updatePost
   }));
   const [sharedPostId, setSharedPostId] = useState(undefined);
 
@@ -142,6 +143,16 @@ const Thread = () => {
     [dispatch]
   );
 
+  const handleUpdatePostToggle = useCallback(
+    id => dispatch(threadActionCreator.toggleUpdatePost(id)),
+    [dispatch]
+  );
+
+  const handleUpdatePost = useCallback(
+    postPayload => dispatch(threadActionCreator.updatePost(postPayload)),
+    [dispatch]
+  );
+
   useEffect(() => {
     handleGetMorePosts();
   }, [handleGetMorePosts]);
@@ -185,6 +196,7 @@ const Thread = () => {
             key={post.id}
             onPostDislike={handlePostDislike}
             onRemovePost={handleRemovePost}
+            onUpdatePost={handleUpdatePostToggle}
           />
         ))}
       </InfiniteScroll>
@@ -195,6 +207,7 @@ const Thread = () => {
           onClose={handleCloseSharedPostLink}
         />
       )}
+      {updatePost && <UpdatePost onPostEdit={handleUpdatePost} />}
     </div>
   );
 };
