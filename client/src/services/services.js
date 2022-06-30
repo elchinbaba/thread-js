@@ -5,6 +5,7 @@ import { Http } from './http/http.service.js';
 import { Image } from './image/image.service.js';
 import { Post } from './post/post.service.js';
 import { Storage } from './storage/storage.service.js';
+import { User } from './user/user.service.js';
 
 const storage = new Storage({
   storage: localStorage
@@ -34,4 +35,9 @@ const image = new Image({
   http
 });
 
-export { http, storage, auth, comment, post, image };
+const user = new User({
+  apiPath: ENV.API_PATH,
+  http
+});
+
+export { http, storage, auth, comment, post, image, user };

@@ -153,6 +153,16 @@ const Thread = () => {
     [dispatch]
   );
 
+  const handleDisplayLikers = useCallback(
+    id => dispatch(threadActionCreator.displayLikers(id)),
+    [dispatch]
+  );
+
+  const handleNotDisplayLikers = useCallback(
+    () => dispatch(threadActionCreator.notDisplayLikers()),
+    [dispatch]
+  );
+
   useEffect(() => {
     handleGetMorePosts();
   }, [handleGetMorePosts]);
@@ -197,6 +207,8 @@ const Thread = () => {
             onPostDislike={handlePostDislike}
             onRemovePost={handleRemovePost}
             onUpdatePost={handleUpdatePostToggle}
+            onDisplayLikers={handleDisplayLikers}
+            onNotDisplayLikers={handleNotDisplayLikers}
           />
         ))}
       </InfiniteScroll>

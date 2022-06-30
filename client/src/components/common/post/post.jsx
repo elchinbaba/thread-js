@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
 
+import { useSelector } from 'hooks/hooks';
+
 import { getFromNowTime } from 'helpers/helpers';
 import { IconName } from 'common/enums/enums';
 import { postType } from 'common/prop-types/prop-types';
 import { IconButton, Image } from 'components/common/common';
 
+import { HoveredPost } from './components/hovered-post.jsx';
+
 import styles from './styles.module.scss';
 
-const Post = ({ post, onPostLike, onExpandedPostToggle, onSharePost, onPostDislike, onRemovePost, onUpdatePost }) => {
+const Post = ({ post, onPostLike, onExpandedPostToggle, onSharePost,
+  onPostDislike, onRemovePost, onUpdatePost, onDisplayLikers, onNotDisplayLikers }) => {
   const {
     id,
     image,
@@ -20,12 +25,16 @@ const Post = ({ post, onPostLike, onExpandedPostToggle, onSharePost, onPostDisli
   } = post;
   const date = getFromNowTime(createdAt);
 
+  const likers = useSelector(state => state.posts.hoveredPost);
+
   const handlePostLike = () => onPostLike(id);
   const handleExpandedPostToggle = () => onExpandedPostToggle(id);
   const handleSharePost = () => onSharePost(id);
   const handlePostDislike = () => onPostDislike(id);
   const handleRemovePost = () => onRemovePost(id);
   const handleUpdatePost = () => onUpdatePost(id);
+  const handleDisplayLikers = () => onDisplayLikers(id);
+  const handleNotDisplayLikers = () => onNotDisplayLikers();
 
   return (
     <div className={styles.card}>
@@ -37,10 +46,13 @@ const Post = ({ post, onPostLike, onExpandedPostToggle, onSharePost, onPostDisli
         <p className={styles.description}>{body}</p>
       </div>
       <div className={styles.extra}>
+        {likers && likers.post && likers.post.id === id && <HoveredPost likers={likers.users} />}
         <IconButton
           iconName={IconName.THUMBS_UP}
           label={likeCount}
           onClick={handlePostLike}
+          onHover={handleDisplayLikers}
+          onNotHover={handleNotDisplayLikers}
         />
         <IconButton
           iconName={IconName.THUMBS_DOWN}
@@ -76,7 +88,9 @@ Post.propTypes = {
   onSharePost: PropTypes.func.isRequired,
   onPostDislike: PropTypes.func.isRequired,
   onRemovePost: PropTypes.func.isRequired,
-  onUpdatePost: PropTypes.func.isRequired
+  onUpdatePost: PropTypes.func.isRequired,
+  onDisplayLikers: PropTypes.func.isRequired,
+  onNotDisplayLikers: PropTypes.func.isRequired
 };
 
 export { Post };

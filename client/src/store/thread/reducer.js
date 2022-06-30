@@ -11,14 +11,20 @@ import {
   removePost,
   loadLikedPosts,
   updatePost,
-  toggleUpdatePost
+  toggleUpdatePost,
+  displayLikers,
+  notDisplayLikers
 } from './actions.js';
 
 const initialState = {
   posts: [],
   expandedPost: null,
   hasMorePosts: true,
-  updatePost: null
+  updatePost: null,
+  hoveredPost: {
+    post: null,
+    users: []
+  }
 };
 
 const reducer = createReducer(initialState, builder => {
@@ -87,6 +93,18 @@ const reducer = createReducer(initialState, builder => {
       const { posts, expandedPost } = action.payload;
       state.posts = posts;
       state.expandedPost = expandedPost;
+    }
+  );
+  builder.addMatcher(
+    isAnyOf(displayLikers.fulfilled, addComment.fulfilled),
+    (state, action) => {
+      state.hoveredPost = action.payload;
+    }
+  );
+  builder.addMatcher(
+    isAnyOf(notDisplayLikers.fulfilled, addComment.fulfilled),
+    (state, action) => {
+      state.hoveredPost = action.payload;
     }
   );
 });
