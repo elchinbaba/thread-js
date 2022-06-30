@@ -6,9 +6,9 @@
 
 ### terminal:
 
-cd client
+    cd client
 
-npm install emailjs-com
+    npm install emailjs-com
 
 # ThreadJS
 
