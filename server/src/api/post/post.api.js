@@ -35,6 +35,11 @@ const initPost = (fastify, opts, done) => {
       return reaction;
     }
   });
+  fastify.route({
+    method: HttpMethod.DELETE,
+    url: PostsApiPath.$ID,
+    [ControllerHook.HANDLER]: req => postService.removePost(req.params.id)
+  });
 
   done();
 };
