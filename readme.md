@@ -1,8 +1,10 @@
-sql code:
+sql:
 
     ALTER TABLE users
 
         ADD status text;
+
+terminal:
 
 cd client
 
