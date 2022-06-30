@@ -336,6 +336,17 @@ const updateUser = createAsyncThunk(
   }
 );
 
+const updateUserStatus = createAsyncThunk(
+  ActionType.UPDATE_USER_STATUS,
+  async (payload, { extra: { services } }) => {
+    const { id, status } = payload;
+    const data = { status, isPassword: false };
+    const user = await services.user.updateUser(id, data);
+
+    return user;
+  }
+);
+
 export {
   loadPosts,
   loadMorePosts,
@@ -352,5 +363,6 @@ export {
   // displayLikersPopup,
   displayLikers,
   notDisplayLikers,
-  updateUser
+  updateUser,
+  updateUserStatus
 };
