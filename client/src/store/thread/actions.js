@@ -347,6 +347,17 @@ const updateUserStatus = createAsyncThunk(
   }
 );
 
+const updateUserPassword = createAsyncThunk(
+  ActionType.RESET_USER_PASSWORD,
+  async (payload, { extra: { services } }) => {
+    const { id, password } = payload;
+    const data = { password, isPassword: true };
+    const user = await services.user.updateUser(id, data);
+
+    return user;
+  }
+);
+
 export {
   loadPosts,
   loadMorePosts,
@@ -364,5 +375,6 @@ export {
   displayLikers,
   notDisplayLikers,
   updateUser,
-  updateUserStatus
+  updateUserStatus,
+  updateUserPassword
 };

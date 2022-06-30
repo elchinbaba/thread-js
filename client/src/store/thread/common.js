@@ -13,7 +13,8 @@ const ActionType = {
   DISPLAY_LIKERS: 'thread/display-likers',
   NOT_DISPLAY_LIKERS: 'thread/not-display-likers',
   UPDATE_PROFILE: 'profile/update',
-  UPDATE_USER_STATUS: 'profile/update-status'
+  UPDATE_USER_STATUS: 'profile/update-status',
+  RESET_USER_PASSWORD: 'profile/reset-password'
 };
 
 export { ActionType };
